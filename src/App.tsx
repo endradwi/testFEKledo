@@ -6,7 +6,7 @@ import type { RegionsData } from './loader';
 import { MdLocationCity, MdOutlineFilterAltOff } from "react-icons/md";
 import { PiGlobeHemisphereWestFill } from 'react-icons/pi';
 
-export default function App() {
+export default function FilterPage() {
   const data = useLoaderData() as RegionsData;
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -14,12 +14,10 @@ export default function App() {
   const regencyId = searchParams.get("regency") || "";
   const districtId = searchParams.get("district") || "";
 
-  // cascades
   const provinces = data.provinces || [];
   const regencies = provinceId ? (data.regencies || []).filter(r => r.province_id.toString() === provinceId) : [];
   const districts = regencyId ? (data.districts || []).filter(d => d.regency_id.toString() === regencyId) : [];
 
-  // active selections
   const activeProvince = provinces.find(p => p.id.toString() === provinceId);
   const activeRegency = regencies.find(r => r.id.toString() === regencyId);
   const activeDistrict = districts.find(d => d.id.toString() === districtId);
